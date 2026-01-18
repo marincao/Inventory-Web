@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management - Inbound</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <h1 class="sidebar-title">📋 Inventory Management</h1>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">📦 Storage</a>
+            <a href="inbound.html" class="nav-link active">📥 Inbound</a>
+            <a href="outbound.html" class="nav-link">📤 Outbound</a>
+            <a href="profit.html" class="nav-link">💰 Profit</a>
+        </div>
+        <div class="nav-links nav-links-bottom">
+            <a href="debug.html" class="nav-link">⚙️ Manage</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+        <div class="header">
+            <h2>Inbound Management</h2>
+        </div>
+
+        <div class="action-cards">
+            <div class="action-card">
+                <div class="action-icon">➕</div>
+                <h3>Add New Product</h3>
+                <p>Add a completely new SSD product to your inventory</p>
+                <button class="btn btn-primary" onclick="openNewProductModal()">Add New Product</button>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">📦</div>
+                <h3>Add Quantity</h3>
+                <p>Add more quantity to an existing product in inventory</p>
+                <button class="btn btn-primary" onclick="openAddQuantityModal()">Add Quantity</button>
+            </div>
+        </div>
+
+        <div class="message" id="message"></div>
+
+        <div class="header" style="margin-top: 40px;">
+            <h2>Recent Inbound Transactions</h2>
+        </div>
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Capacity</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody id="inboundTableBody">
+                    <tr>
+                        <td colspan="8" class="loading">Loading transactions...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- New Product Modal -->
+    <div id="newProductModal" class="modal">
+        <div class="modal-content modal-large">
+            <span class="close" onclick="closeNewProductModal()">&times;</span>
+            <h2>Add New Product</h2>
+            <form id="newProductForm" class="product-form">
+                <div class="form-section">
+                    <h3>Product Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Brand *</label>
+                            <input type="text" id="brand" required placeholder="e.g., Samsung, WD, Crucial">
+                        </div>
+                        <div class="form-group">
+                            <label>Model *</label>
+                            <input type="text" id="model" required placeholder="e.g., 980 PRO, SN850X">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Capacity *</label>
+                            <div class="capacity-input-group">
+                                <input type="number" id="capacity" required step="0.01" min="0" placeholder="e.g., 500, 1, 2">
+                                <select id="capacity_unit" required>
+                                    <option value="GB">GB</option>
+                                    <option value="TB">TB</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Interface</label>
+                            <select id="interface">
+                                <option value="">Select Interface</option>
+                                <option value="SATA III">SATA III</option>
+                                <option value="NVMe PCIe 3.0">NVMe PCIe 3.0</option>
+                                <option value="NVMe PCIe 4.0">NVMe PCIe 4.0</option>
+                                <option value="NVMe PCIe 5.0">NVMe PCIe 5.0</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Form Factor</label>
+                            <select id="form_factor">
+                                <option value="">Select Form Factor</option>
+                                <option value="2.5 inch">2.5 inch</option>
+                                <option value="M.2 2280">M.2 2280</option>
+                                <option value="M.2 2242">M.2 2242</option>
+                                <option value="M.2 22110">M.2 22110</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Warranty Period</label>
+                            <input type="text" id="warranty_period" placeholder="e.g., 5 years, 3 years">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Inventory Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Quantity *</label>
+                            <input type="number" id="quantity" required min="1" placeholder="Enter quantity">
+                        </div>
+                        <div class="form-group">
+                            <label>Unit Price ($) *</label>
+                            <input type="number" id="unit_price" required step="0.01" min="0" placeholder="0.00">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Condition Status</label>
+                            <select id="condition_status">
+                                <option value="in_stock">In Stock</option>
+                                <option value="out_of_stock">Out of Stock</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Active</label>
+                            <select id="is_active">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea id="notes" rows="3" placeholder="Additional notes about this transaction..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Add to Inventory</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeNewProductModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Quantity Modal -->
+    <div id="addQuantityModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddQuantityModal()">&times;</span>
+            <h2>Add Quantity to Existing Product</h2>
+            <form id="addQuantityForm" class="product-form">
+                <div class="form-group">
+                    <label>Select Product *</label>
+                    <select id="existing_product_id" required>
+                        <option value="">Select a product...</option>
+                    </select>
+                    <small id="productInfo" class="form-hint"></small>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Quantity to Add *</label>
+                        <input type="number" id="add_quantity" required min="1" placeholder="Enter quantity">
+                    </div>
+                    <div class="form-group">
+                        <label>Unit Price ($)</label>
+                        <input type="number" id="add_unit_price" step="0.01" min="0" placeholder="Leave empty to use current price">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea id="add_notes" rows="3" placeholder="Additional notes..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Add Quantity</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeAddQuantityModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+
+    <script src="inbound.js"></script>
+</body>
+</html>

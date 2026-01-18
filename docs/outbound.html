@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management - Outbound</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <h1 class="sidebar-title">📋 Inventory Management</h1>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">📦 Storage</a>
+            <a href="inbound.html" class="nav-link">📥 Inbound</a>
+            <a href="outbound.html" class="nav-link active">📤 Outbound</a>
+            <a href="profit.html" class="nav-link">💰 Profit</a>
+        </div>
+        <div class="nav-links nav-links-bottom">
+            <a href="debug.html" class="nav-link">⚙️ Manage</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+        <div class="header">
+            <h2>Record Sale / Outbound Transaction</h2>
+        </div>
+
+        <div class="form-container">
+            <form id="outboundForm" class="product-form">
+                <div class="form-section">
+                    <h3>Select Product</h3>
+                    <div class="form-group">
+                        <label>Product *</label>
+                        <select id="product_id" required>
+                            <option value="">Select a product...</option>
+                        </select>
+                        <small id="productInfo" class="form-hint"></small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Transaction Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Quantity *</label>
+                            <input type="number" id="quantity" required min="1" placeholder="Enter quantity to sell">
+                            <small id="quantityInfo" class="form-hint"></small>
+                        </div>
+                        <div class="form-group">
+                            <label>Unit Price ($)</label>
+                            <input type="number" id="unit_price" step="0.01" min="0" placeholder="Leave empty to use product price">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea id="notes" rows="3" placeholder="Additional notes about this sale..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Record Sale</button>
+                    <button type="reset" class="btn btn-secondary">Clear Form</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="message" id="message"></div>
+
+        <div class="header" style="margin-top: 40px;">
+            <h2>Recent Outbound Transactions</h2>
+        </div>
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Capacity</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody id="outboundTableBody">
+                    <tr>
+                        <td colspan="8" class="loading">Loading transactions...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <script src="outbound.js"></script>
+</body>
+</html>

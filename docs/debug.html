@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Management - Inventory Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .debug-section {
+            margin-bottom: 3rem;
+        }
+        .debug-section h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #667eea;
+        }
+        .data-count {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+        }
+        .delete-btn-small {
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+        }
+        .danger-zone {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        .danger-zone h3 {
+            color: #856404;
+            border-bottom-color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <h1 class="sidebar-title">📋 Inventory Management</h1>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">📦 Storage</a>
+            <a href="inbound.html" class="nav-link">📥 Inbound</a>
+            <a href="outbound.html" class="nav-link">📤 Outbound</a>
+            <a href="profit.html" class="nav-link">💰 Profit</a>
+        </div>
+        <div class="nav-links nav-links-bottom">
+            <a href="debug.html" class="nav-link active">⚙️ Manage</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+        <div class="header">
+            <h2>Database Management</h2>
+            <div>
+                <button class="btn btn-primary" onclick="loadDebugData()">🔄 Refresh Data</button>
+                <button class="btn btn-danger" onclick="deleteAllData()">🗑️ Delete All Data</button>
+            </div>
+        </div>
+
+        <div class="message" id="message"></div>
+
+        <div id="dataSummary" class="stats-section" style="margin-bottom: 2rem;">
+            <div class="stat-card">
+                <h3>Total Products</h3>
+                <p id="totalProductsCount">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Inbound Transactions</h3>
+                <p id="totalInboundCount">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Outbound Transactions</h3>
+                <p id="totalOutboundCount">0</p>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <div class="debug-section">
+            <h3>Products <span class="data-count" id="productsCount">0</span></h3>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Capacity</th>
+                            <th>Interface</th>
+                            <th>Form Factor</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Status</th>
+                            <th>Active</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        <tr>
+                            <td colspan="12" class="loading">Loading products...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Inbound Transactions Section -->
+        <div class="debug-section">
+            <h3>Inbound Transactions <span class="data-count" id="inboundCount">0</span></h3>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product ID</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                            <th>Date</th>
+                            <th>Notes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inboundTableBody">
+                        <tr>
+                            <td colspan="8" class="loading">Loading inbound transactions...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Outbound Transactions Section -->
+        <div class="debug-section">
+            <h3>Outbound Transactions <span class="data-count" id="outboundCount">0</span></h3>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product ID</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                            <th>Date</th>
+                            <th>Notes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="outboundTableBody">
+                        <tr>
+                            <td colspan="8" class="loading">Loading outbound transactions...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="danger-zone">
+            <h3>⚠️ Danger Zone</h3>
+            <p style="margin-bottom: 1rem;">Use these actions with extreme caution. All actions are irreversible.</p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <button class="btn btn-danger" onclick="deleteAllProducts()">Delete All Products</button>
+                <button class="btn btn-danger" onclick="deleteAllInbound()">Delete All Inbound</button>
+                <button class="btn btn-danger" onclick="deleteAllOutbound()">Delete All Outbound</button>
+                <button class="btn btn-danger" onclick="deleteAllData()">Delete Everything</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="debug.js"></script>
+</body>
+</html>

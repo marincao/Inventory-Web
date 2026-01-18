@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management - Profit Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <h1 class="sidebar-title">📋 Inventory Management</h1>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">📦 Storage</a>
+            <a href="inbound.html" class="nav-link">📥 Inbound</a>
+            <a href="outbound.html" class="nav-link">📤 Outbound</a>
+            <a href="profit.html" class="nav-link active">💰 Profit</a>
+        </div>
+        <div class="nav-links nav-links-bottom">
+            <a href="debug.html" class="nav-link">⚙️ Manage</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+        <div class="header">
+            <h2>Profit Analysis</h2>
+            <button class="btn btn-primary" onclick="loadProfitData()">Refresh</button>
+        </div>
+
+        <div class="stats-section">
+            <div class="stat-card stat-profit stat-profit-positive">
+                <h3>Total Profit</h3>
+                <p id="totalProfitDisplay">$0.00</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Revenue</h3>
+                <p id="totalRevenueDisplay">$0.00</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Transactions</h3>
+                <p id="transactionCountDisplay">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Average Profit per Sale</h3>
+                <p id="avgProfitDisplay">$0.00</p>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Capacity</th>
+                        <th>Quantity Sold</th>
+                        <th>Sale Price (Unit)</th>
+                        <th>Average Cost (Unit)</th>
+                        <th>Revenue</th>
+                        <th>Profit</th>
+                    </tr>
+                </thead>
+                <tbody id="profitTableBody">
+                    <tr>
+                        <td colspan="9" class="loading">Loading profit data...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <script src="profit.js"></script>
+</body>
+</html>
