@@ -1,4 +1,4 @@
-const API_BASE = 'https://marincao.github.io/Inventory-Web/';
+const API_BASE = 'http://localhost:3000/api';
 
 let allProducts = [];
 

@@ -14,11 +14,11 @@ app.use(express.static('docs'));
 
 // Database configuration
 const dbConfig = {
-  host: 'localhost',
-  user: 'root',
-  password: '123456',
-  port: 3306,
-  database: 'inventory_db',
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '123456',
+  port: process.env.DB_PORT || 3306,
+  database: process.env.DB_NAME || 'inventory_db',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
