@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = 'https://marincao.github.io/Inventory-Web/';
 
 // Load profit data on page load
 document.addEventListener('DOMContentLoaded', () => {
